@@ -9,10 +9,36 @@
   home.stateVersion = "23.05";
 
   home.packages = with pkgs; [
-    bashInteractive
+    # rust
+    rustc
+    cargo
+    rustfmt
+    clippy
+    rust-analyzer
+    cargo-nextest
+
+    # python
+    python3
+    uv
+    mypy
+    ruff
+
+    # js
+    nodejs
+    typescript
+    pnpm
+    prettier
+    eslint
+
+    # nix
     nil
     nixfmt-rfc-style
+
+    # fonts
     nerd-fonts.jetbrains-mono
+
+    # cli
+    bashInteractive
     eza
     helix
   ];
