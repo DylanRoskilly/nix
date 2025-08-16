@@ -4,7 +4,18 @@
   secrets,
   ...
 }:
-
+let
+  font = {
+    name = "JetBrains Mono";
+    size = 15;
+  };
+  btopCatppuccinTheme = pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "btop";
+    rev = "main";
+    sha256 = "mEGZwScVPWGu+Vbtddc/sJ+mNdD2kKienGZVUcTSl+c=";
+  };
+in
 {
   home.stateVersion = "23.05";
 
@@ -41,7 +52,6 @@
     # cli
     bashInteractive
     eza
-    helix
   ];
 
   home.shellAliases = {
@@ -49,13 +59,22 @@
     cd = "z";
   };
 
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    oh-my-zsh = {
+      enable = true;
+      theme = "eastwood";
+      plugins = [ "git" ];
+    };
+  };
+
   programs.kitty = {
     enable = true;
     themeFile = "OneDark";
-    font = {
-      name = "JetBrains Mono";
-      size = 15;
-    };
+    font = font;
   };
 
   programs.tmux = {
@@ -76,6 +95,11 @@
     '';
   };
 
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.git = {
     enable = true;
     userName = secrets.gitUserName;
@@ -86,21 +110,15 @@
     ignores = [ ".DS_Store" ];
   };
 
-  programs.zsh = {
+  programs.btop = {
     enable = true;
-    enableCompletion = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    oh-my-zsh = {
-      enable = true;
-      theme = "eastwood";
-      plugins = [ "git" ];
-    };
+    settings.color_theme = "catppuccin_frappe";
+    themes.catppuccin_frappe = builtins.readFile "${btopCatppuccinTheme}/themes/catppuccin_frappe.theme";
   };
 
-  programs.zoxide = {
+  programs.helix = {
     enable = true;
-    enableZshIntegration = true;
+    settings.theme = "catppuccin_frappe";
   };
 
   programs.vscode = {
@@ -114,8 +132,8 @@
         # appearance
         "workbench.colorTheme" = "Catppuccin Frappé";
         "workbench.iconTheme" = "material-icon-theme";
-        "editor.fontFamily" = "JetBrains Mono";
-        "editor.fontSize" = 15;
+        "editor.fontFamily" = font.name;
+        "editor.fontSize" = font.size;
         "editor.inlayHints.enabled" = "offUnlessPressed";
         "editor.minimap.enabled" = false;
 
