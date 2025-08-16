@@ -9,12 +9,6 @@ let
     name = "JetBrains Mono";
     size = 15;
   };
-  btopCatppuccinTheme = pkgs.fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "btop";
-    rev = "main";
-    sha256 = "mEGZwScVPWGu+Vbtddc/sJ+mNdD2kKienGZVUcTSl+c=";
-  };
 in
 {
   home.stateVersion = "23.05";
@@ -112,13 +106,12 @@ in
 
   programs.btop = {
     enable = true;
-    settings.color_theme = "catppuccin_frappe";
-    themes.catppuccin_frappe = builtins.readFile "${btopCatppuccinTheme}/themes/catppuccin_frappe.theme";
+    settings.color_theme = "TTY";
   };
 
   programs.helix = {
     enable = true;
-    settings.theme = "catppuccin_frappe";
+    settings.theme = "gruvbox";
   };
 
   programs.vscode = {
@@ -130,7 +123,7 @@ in
         "extensions.autoCheckUpdates" = false;
 
         # appearance
-        "workbench.colorTheme" = "Catppuccin Frappé";
+        "workbench.colorTheme" = "Dark+";
         "workbench.iconTheme" = "material-icon-theme";
         "editor.fontFamily" = font.name;
         "editor.fontSize" = font.size;
@@ -150,7 +143,6 @@ in
       };
       extensions = with pkgs.vscode-marketplace; [
         # themes
-        catppuccin.catppuccin-vsc
         pkief.material-icon-theme
 
         # lsp
