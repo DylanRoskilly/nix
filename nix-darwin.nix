@@ -30,5 +30,9 @@
 
   environment.systemPackages = [ ];
 
+  fonts.packages = with pkgs; [
+    jetbrains-mono
+  ];
+
   security.pam.services.sudo_local.touchIdAuth = true;
 }

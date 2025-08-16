@@ -34,16 +34,15 @@
     nil
     nixfmt-rfc-style
 
-    # fonts
-    nerd-fonts.jetbrains-mono
+    # typst
+    typst
+    tinymist
 
     # cli
     bashInteractive
     eza
     helix
   ];
-
-  fonts.fontconfig.enable = true;
 
   home.shellAliases = {
     ls = "eza -a";
@@ -54,7 +53,7 @@
     enable = true;
     themeFile = "OneDark";
     font = {
-      name = "JetBrainsMono NF";
+      name = "JetBrains Mono";
       size = 15;
     };
   };
@@ -111,26 +110,42 @@
       enableExtensionUpdateCheck = false;
       userSettings = {
         "extensions.autoCheckUpdates" = false;
-        "workbench.colorTheme" = "Default Dark+";
+
+        # appearance
+        "workbench.colorTheme" = "Catppuccin Frappé";
         "workbench.iconTheme" = "material-icon-theme";
-        "editor.fontFamily" = "JetBrainsMono NF";
+        "editor.fontFamily" = "JetBrains Mono";
         "editor.fontSize" = 15;
+        "editor.inlayHints.enabled" = "offUnlessPressed";
+        "editor.minimap.enabled" = false;
+
+        # saving
         "editor.formatOnSave" = true;
         "files.insertFinalNewline" = true;
         "files.trimFinalNewlines" = true;
         "files.autoSave" = "onFocusChange";
-        "editor.inlayHints.enabled" = "offUnlessPressed";
-        "editor.minimap.enabled" = false;
+
+        # extensions
         "rust-analyzer.lens.enable" = false;
+        "rewrap.autoWrap.enabled" = true;
+        "rewrap.wrappingColumn" = 80;
       };
       extensions = with pkgs.vscode-marketplace; [
+        # themes
+        catppuccin.catppuccin-vsc
+        pkief.material-icon-theme
+
+        # lsp
+        myriad-dreamin.tinymist
         jnoortheen.nix-ide
         rust-lang.rust-analyzer
         tamasfe.even-better-toml
         zxh404.vscode-proto3
         yzhang.markdown-all-in-one
+
+        # tools
         usernamehw.errorlens
-        pkief.material-icon-theme
+        dnut.rewrap-revived
         gruntfuggly.todo-tree
       ];
     };
